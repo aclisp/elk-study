@@ -1,0 +1,7 @@
+cluster.name: local_es
+node.name: local_node
+path.data: /data/es_index
+path.logs: /home/huanghao/elasticsearch-5.5.0/logs
+network.host: 127.0.0.1
+http.port: 9200
+xpack.security.enabled: false

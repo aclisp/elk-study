@@ -1,0 +1,108 @@
+{
+  "template": "local_test-*",
+  "order": 0,
+  "settings": {
+    "index.number_of_shards": 1,
+    "index.number_of_replicas": 0,
+    "index.mapping.total_fields.limit": 1000,
+    "index.refresh_interval": "5s"
+  },
+  "mappings": {
+    "_default_": {
+      "_all": {
+        "norms": false,
+        "enabled": false
+      },
+      "date_detection": false,
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "beat": {
+          "properties": {
+            "hostname": {
+              "ignore_above": 1024,
+              "type": "keyword",
+              "index": false
+            },
+            "name": {
+              "ignore_above": 1024,
+              "type": "keyword",
+              "index": false
+            },
+            "version": {
+              "ignore_above": 1024,
+              "type": "keyword",
+              "index": false
+            }
+          }
+        },
+        "error": {
+          "ignore_above": 1024,
+          "type": "keyword"
+        },
+        "fileset": {
+          "properties": {
+            "module": {
+              "ignore_above": 1024,
+              "type": "keyword",
+              "index": false
+            },
+            "name": {
+              "ignore_above": 1024,
+              "type": "keyword",
+              "index": false
+            }
+          }
+        },
+        "input_type": {
+          "ignore_above": 1024,
+          "type": "keyword",
+          "index": false
+        },
+        "content": {
+          "norms": false,
+          "type": "text"
+        },
+        "offset": {
+          "type": "long",
+          "index": false
+        },
+        "read_timestamp": {
+          "ignore_above": 1024,
+          "type": "keyword",
+          "index": false
+        },
+        "source": {
+          "ignore_above": 1024,
+          "type": "keyword",
+          "index": false
+        },
+        "tags": {
+          "ignore_above": 1024,
+          "type": "keyword",
+          "index": false
+        },
+        "type": {
+          "ignore_above": 1024,
+          "type": "keyword",
+          "index": false
+        },
+        "level": {
+          "ignore_above": 1024,
+          "type": "keyword"
+        },
+        "pid": {
+          "type": "integer"
+        },
+        "program": {
+          "ignore_above": 1024,
+          "type": "keyword"
+        },
+        "realtime": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}

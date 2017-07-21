@@ -1,0 +1,7 @@
+server.port: 5601
+server.host: "14.17.109.205"
+server.name: "local_kib"
+elasticsearch.url: "http://127.0.0.1:9200"
+pid.file: /home/huanghao/kibana-5.5.0-linux-x86_64/kibana.pid
+ops.interval: 1000
+xpack.security.enabled: false

@@ -1,0 +1,30 @@
+filebeat.prospectors:
+- input_type: stdin
+  enabled: false
+- input_type: log
+  enabled: true
+  paths:
+    - /home/huanghao/logs/*.log
+  pipeline: yy_fmt_parser
+  exclude_files: [".gz$"]
+filebeat.spool_size: 10240
+filebeat.idle_timeout: 10s
+name: local_test
+processors:
+- drop_fields:
+    fields: ["beat.hostname", "input_type", "offset"]
+output.elasticsearch:
+  enabled: true
+  hosts: ["localhost:9200"]
+  compression_level: 0
+  index: "local_test-%{+yyyy.MM.dd}"
+  pipeline: ""
+  bulk_max_size: 5000
+  flush_interval: 5s
+  template.enabled: true
+  template.name: "local_test"
+  template.path: "${path.config}/local_test.template.json"
+  template.overwrite: true
+output.console:
+  enabled: false
+  pretty: true

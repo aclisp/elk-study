@@ -1,0 +1,58 @@
+GET local_test-*/_settings
+
+GET local_test-*/_mappings
+
+GET _template/local_test
+
+GET _ingest/pipeline
+
+PUT _ingest/pipeline/yy_fmt_parser
+{
+  "description": "Parse yy_fmt logs",
+  "processors": [
+    {
+      "grok": {
+        "field": "message",
+        "patterns": [
+          "%{SYSLOGTIMESTAMP:logtime} %{LOGLEVEL:level} %{SYSLOGPROG}: %{GREEDYDATA:content}"
+        ]
+      }
+    },
+    {
+      "remove": {
+        "field": "message"
+      }
+    },
+    {
+      "date": {
+        "field": "logtime",
+        "target_field": "realtime",
+        "formats": ["MMM dd HH:mm:ss"],
+        "timezone": "Asia/Shanghai"
+      }
+    },
+    {
+      "remove": {
+        "field": "logtime"
+      }
+    }
+  ]
+}
+
+POST _ingest/pipeline/yy_fmt_parser/_simulate
+{
+  "docs": [
+    {
+      "_source": {
+        "@timestamp": "2017-07-14T06:36:54.648Z",
+        "beat": {
+          "name": "local_test",
+          "version": "5.5.0"
+        },
+        "message": "Jul 11 15:11:23 info music_dbgate_m.t537913.0124.r[30018]: [μs:824906][src/dbgateSystem.cpp:445]: <30577>: procDbAndRedis: SQL Affected row = 0, row count = 0, insertId = 0, warning count = 0, fields number = 0 ",
+        "source": "",
+        "type": "log"
+      }
+    }
+  ]
+}
